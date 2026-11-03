@@ -1,0 +1,666 @@
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Future Community</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg:#090b18;
+  --panel:#12172a;
+  --panel2:#191f37;
+  --text:#f5f6ff;
+  --muted:#929bb7;
+  --border:#29304b;
+  --primary:#8b5cf6;
+  --cyan:#00d9ff;
+  --pink:#ff42bd;
+  --green:#42e6a4;
+}
+*{box-sizing:border-box}
+body{
+ margin:0;background:var(--bg);color:var(--text);
+ font-family:Inter,sans-serif;min-height:100vh;
+ transition:.3s;
+}
+body.light{
+ --bg:#eef1fa;--panel:#fff;--panel2:#e7eaf5;
+ --text:#171a2d;--muted:#69718b;--border:#d6dbea;
+}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{display:flex;min-height:100vh}
+.sidebar{
+ width:255px;background:var(--panel);
+ border-right:1px solid var(--border);
+ padding:25px 17px;position:fixed;inset:0 auto 0 0;
+ z-index:10;display:flex;flex-direction:column;
+}
+.logo{
+ font:800 22px Orbitron,sans-serif;
+ letter-spacing:-1px;padding:8px 10px 30px;
+}
+.logo span{color:var(--cyan)}
+.logo small{display:block;font:11px Inter;color:var(--muted);letter-spacing:4px;margin-top:7px}
+.nav-title{font-size:10px;color:var(--muted);letter-spacing:2px;padding:14px 12px 8px}
+.nav button{
+ width:100%;border:0;background:none;color:var(--muted);
+ padding:12px;border-radius:10px;text-align:left;
+ margin:2px 0;display:flex;gap:12px;align-items:center;
+ transition:.2s;font-size:13px;
+}
+.nav button:hover,.nav button.active{
+ background:linear-gradient(100deg,#783de733,#00c8ff12);
+ color:var(--text);
+}
+.nav button.active{border-left:3px solid var(--cyan)}
+.sidebar-bottom{margin-top:auto;border-top:1px solid var(--border);padding-top:15px}
+.main{margin-left:255px;width:calc(100% - 255px);min-width:0}
+.topbar{
+ height:76px;border-bottom:1px solid var(--border);
+ display:flex;align-items:center;justify-content:space-between;
+ padding:0 35px;background:var(--bg);
+ position:sticky;top:0;z-index:5;
+}
+.search{background:var(--panel);border:1px solid var(--border);
+ border-radius:12px;padding:11px 15px;color:var(--text);
+ width:min(350px,45vw);outline:none}
+.top-actions{display:flex;align-items:center;gap:12px}
+.avatar{
+ width:37px;height:37px;border-radius:12px;
+ display:grid;place-items:center;
+ background:linear-gradient(135deg,var(--primary),var(--cyan));
+ color:white;font-weight:800;
+}
+.page{padding:32px 35px;max-width:1450px;margin:auto}
+h1{font:700 clamp(23px,3vw,34px) Orbitron,sans-serif;margin:0 0 10px}
+h2{font:700 17px Orbitron,sans-serif}
+.muted{color:var(--muted);font-size:13px}
+.gradient{
+ background:linear-gradient(100deg,var(--cyan),var(--primary),var(--pink));
+ background-clip:text;color:transparent;
+}
+.hero{
+ padding:38px;border-radius:22px;
+ background:radial-gradient(circle at 85% 20%,#8b5cf644,transparent 35%),
+ linear-gradient(120deg,#17234a,#15112d);
+ border:1px solid #45417a;position:relative;overflow:hidden;
+}
+.hero:after{
+ content:"✦";position:absolute;right:9%;top:5%;
+ font-size:170px;color:#ffffff0a;
+}
+.hero h1{font-size:clamp(27px,4vw,45px);max-width:700px;line-height:1.25}
+.hero p{color:#c1c9e7;max-width:600px;line-height:1.7}
+.btn{
+ border:0;border-radius:10px;padding:11px 17px;
+ background:linear-gradient(110deg,#7847ed,#298fe9);
+ color:white;font-weight:700;font-size:12px;
+ transition:.2s;
+}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--border)}
+.btn.danger{background:#e54862}
+.btn.small{padding:7px 11px}
+.stats{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:15px;margin:24px 0;
+}
+.stat,.card{
+ background:var(--panel);border:1px solid var(--border);
+ border-radius:16px;padding:20px;
+}
+.stat .number{font:700 27px Orbitron;margin:12px 0 5px}
+.stat .symbol{font-size:23px}
+.grid{display:grid;grid-template-columns:1.6fr 1fr;gap:18px}
+.card{margin-bottom:17px}
+.card-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:17px}
+.card-head h2{margin:0}
+.post{
+ padding:17px 0;border-top:1px solid var(--border);
+}
+.post:first-of-type{border-top:0}
+.post-user{display:flex;align-items:center;gap:10px}
+.post-user strong{font-size:13px}
+.post p{font-size:13px;line-height:1.7;color:var(--muted)}
+.post-actions{display:flex;gap:10px;align-items:center}
+.tag{font-size:10px;padding:5px 9px;border-radius:20px;background:#8b5cf622;color:#ad93ff}
+.input{
+ width:100%;padding:12px 14px;border-radius:10px;
+ border:1px solid var(--border);background:var(--bg);
+ color:var(--text);outline:none;margin:7px 0 14px;
+}
+.input:focus{border-color:var(--cyan)}
+textarea.input{resize:vertical;min-height:90px}
+.section{display:none;animation:fade .25s}
+.section.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.member{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--border)}
+.member-left{display:flex;align-items:center;gap:12px}
+.rank{font:700 17px Orbitron;color:var(--cyan);width:30px}
+.chat-box{height:340px;overflow:auto;border:1px solid var(--border);border-radius:12px;padding:15px;background:var(--bg)}
+.message{margin-bottom:15px;font-size:13px}
+.message strong{color:var(--cyan)}
+.message p{margin:5px 0;color:var(--muted)}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:13px}
+.gallery img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;border:1px solid var(--border)}
+.badge{font-size:10px;padding:5px 9px;border-radius:20px;background:#42e6a422;color:var(--green)}
+.empty{text-align:center;padding:35px;color:var(--muted);font-size:13px}
+.footer{text-align:center;color:var(--muted);padding:30px;font-size:11px}
+.mobile-menu{display:none}
+.auth{
+ position:fixed;inset:0;background:#070916;
+ z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;
+}
+.auth-box{
+ width:min(420px,100%);padding:35px;
+ border-radius:22px;background:var(--panel);
+ border:1px solid var(--border);box-shadow:0 0 80px #8048ff22;
+}
+.auth-box h1{font-size:25px}
+.toast{
+ position:fixed;bottom:25px;right:25px;
+ background:var(--panel2);border:1px solid var(--border);
+ padding:14px 20px;border-radius:12px;z-index:100;
+ animation:fade .3s;
+}
+.admin-only{display:none}
+@media(max-width:900px){
+ .sidebar{width:220px}
+ .main{margin-left:220px;width:calc(100% - 220px)}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .grid{grid-template-columns:1fr}
+}
+@media(max-width:650px){
+ .sidebar{transform:translateX(-100%);transition:.3s;width:255px}
+ .sidebar.open{transform:translateX(0)}
+ .main{margin-left:0;width:100%}
+ .topbar{padding:0 15px;height:65px}
+ .page{padding:22px 15px}
+ .hero{padding:25px}
+ .search{width:155px}
+ .stats{gap:9px}
+ .stat{padding:13px}
+ .stat .number{font-size:21px}
+ .gallery{grid-template-columns:repeat(2,1fr)}
+ .mobile-menu{display:block}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="auth" id="auth">
+ <div class="auth-box">
+  <div class="logo">FUTURE<span> COMMUNITY</span><small>YOUR DIGITAL WORLD</small></div>
+  <h1 id="authTitle">Willkommen zurück.</h1>
+  <p class="muted" id="authSubtitle">Melde dich bei deiner Community an.</p>
+  <div id="registerFields" style="display:none">
+   <label class="muted">Anzeigename</label>
+   <input class="input" id="regName" placeholder="Dein Name">
+  </div>
+  <label class="muted">Benutzername</label>
+  <input class="input" id="username" placeholder="Benutzername">
+  <label class="muted">Passwort</label>
+  <input class="input" id="password" type="password" placeholder="Passwort">
+  <button class="btn" style="width:100%;margin-top:8px" onclick="authenticate()">Weiter</button>
+  <p class="muted" style="text-align:center;margin-top:20px">
+   <span id="switchText">Noch kein Konto?</span>
+   <a href="#" style="color:var(--cyan)" onclick="switchAuth();return false" id="switchLink">Registrieren</a>
+  </p>
+  <p class="muted" style="font-size:10px;text-align:center">Demo-Version: Konten werden lokal gespeichert.</p>
+ </div>
+</div>
+
+<div class="app" id="app" style="display:none">
+<aside class="sidebar" id="sidebar">
+ <div class="logo">FUTURE<span> COMMUNITY</span><small>YOUR DIGITAL WORLD</small></div>
+ <div class="nav">
+  <div class="nav-title">COMMUNITY</div>
+  <button class="active" onclick="navigate('home',this)">⌂ &nbsp; Startseite</button>
+  <button onclick="navigate('news',this)">▤ &nbsp; News & Blog</button>
+  <button onclick="navigate('gallery',this)">▧ &nbsp; Galerie</button>
+  <button onclick="navigate('chat',this)">◉ &nbsp; Community Chat</button>
+  <button onclick="navigate('ranking',this)">♛ &nbsp; Rangliste</button>
+  <div class="nav-title">MEIN BEREICH</div>
+  <button onclick="navigate('dashboard',this)">▦ &nbsp; Dashboard</button>
+  <button onclick="navigate('settings',this)">⚙ &nbsp; Einstellungen</button>
+  <div class="nav-title admin-only" id="adminLabel">ADMINISTRATION</div>
+  <button class="admin-only" id="adminButton" onclick="navigate('admin',this)">♜ &nbsp; Admin-Bereich</button>
+  <div class="nav-title">INFORMATION</div>
+  <button onclick="navigate('about',this)">ⓘ &nbsp; Über uns</button>
+ </div>
+ <div class="sidebar-bottom">
+  <div class="member-left">
+   <div class="avatar" id="sideAvatar">U</div>
+   <div><strong id="sideName" style="font-size:13px">User</strong><div class="muted" id="sideRole">Mitglied</div></div>
+  </div>
+  <button class="btn secondary small" style="width:100%;margin-top:14px" onclick="logout()">Abmelden</button>
+ </div>
+</aside>
+
+<main class="main">
+ <header class="topbar">
+  <div class="top-actions">
+   <button class="btn secondary mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+   <input class="search" id="search" placeholder="⌕  Suchen..." oninput="searchContent(this.value)">
+  </div>
+  <div class="top-actions">
+   <button class="btn secondary small" onclick="toggleTheme()">◐</button>
+   <div class="avatar" id="topAvatar">U</div>
+  </div>
+ </header>
+
+<div class="page">
+
+<!-- HOME -->
+<section class="section active" id="home">
+ <div class="hero">
+  <span class="tag">✦ THE FUTURE STARTS HERE</span>
+  <h1>Welcome to your <span class="gradient">Future.</span></h1>
+  <p>Entdecke neue Menschen, teile deine Ideen und werde Teil einer Community, die gemeinsam die digitale Zukunft gestaltet.</p>
+  <button class="btn" onclick="navigateById('news')">Community entdecken →</button>
+  <button class="btn secondary" onclick="navigateById('chat')">Zum Chat</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><div class="symbol">👥</div><div class="number" id="statUsers">0</div><div class="muted">Mitglieder</div></div>
+  <div class="stat"><div class="symbol">▤</div><div class="number" id="statPosts">0</div><div class="muted">Beiträge</div></div>
+  <div class="stat"><div class="symbol">💬</div><div class="number" id="statMessages">0</div><div class="muted">Nachrichten</div></div>
+  <div class="stat"><div class="symbol">⚡</div><div class="number" id="statPoints">0</div><div class="muted">Deine Punkte</div></div>
+ </div>
+ <div class="grid">
+  <div class="card">
+   <div class="card-head"><h2>Neueste Beiträge</h2><button class="btn secondary small" onclick="navigateById('news')">Alle anzeigen</button></div>
+   <div id="homePosts"></div>
+  </div>
+  <div>
+   <div class="card">
+    <div class="card-head"><h2>🏆 Top Mitglieder</h2></div>
+    <div id="homeRanking"></div>
+   </div>
+   <div class="card">
+    <h2>✨ Community Info</h2>
+    <p class="muted">Dein Ort für Ideen, Austausch und neue Freundschaften. Gemeinsam gestalten wir die Zukunft.</p>
+    <span class="badge">● Community aktiv</span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<!-- NEWS -->
+<section class="section" id="news">
+ <h1>News & <span class="gradient">Beiträge</span></h1>
+ <p class="muted">Was passiert gerade in unserer Community?</p>
+ <div class="card">
+  <h2>Neuen Beitrag erstellen</h2>
+  <input class="input" id="postTitle" placeholder="Titel deines Beitrags">
+  <textarea class="input" id="postText" placeholder="Was möchtest du mit der Community teilen?"></textarea>
+  <button class="btn" onclick="createPost()">Beitrag veröffentlichen +</button>
+ </div>
+ <div class="card">
+  <div class="card-head"><h2>Community Feed</h2><span class="tag">LIVE FEED</span></div>
+  <div id="allPosts"></div>
+ </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" id="gallery">
+ <h1>Community <span class="gradient">Galerie</span></h1>
+ <p class="muted">Bilder und Momente aus unserer Community.</p>
+ <div class="card">
+  <h2>Bild hochladen</h2>
+  <input class="input" type="file" id="imageUpload" accept="image/*">
+  <input class="input" id="imageCaption" placeholder="Bildbeschreibung">
+  <button class="btn" onclick="uploadImage()">Bild veröffentlichen</button>
+ </div>
+ <div class="card">
+  <div class="card-head"><h2>Alle Bilder</h2></div>
+  <div class="gallery" id="galleryGrid"></div>
+ </div>
+</section>
+
+<!-- CHAT -->
+<section class="section" id="chat">
+ <h1>Community <span class="gradient">Chat</span></h1>
+ <p class="muted">Unterhalte dich mit anderen Mitgliedern.</p>
+ <div class="card">
+  <div class="card-head"><h2>🌐 Allgemeiner Chat</h2><span class="badge">Community Chat</span></div>
+  <div class="chat-box" id="chatBox"></div>
+  <div style="display:flex;gap:8px;margin-top:12px">
+   <input class="input" id="chatInput" placeholder="Nachricht schreiben..." style="margin:0">
+   <button class="btn" onclick="sendMessage()">➤</button>
+  </div>
+ </div>
+</section>
+
+<!-- RANKING -->
+<section class="section" id="ranking">
+ <h1>Community <span class="gradient">Rangliste</span></h1>
+ <p class="muted">Wer ist besonders aktiv?</p>
+ <div class="card">
+  <div class="card-head"><h2>🏆 Top Mitglieder</h2></div>
+  <div id="fullRanking"></div>
+  <p class="muted">Punkte erhältst du durch Beiträge und Aktivität.</p>
+ </div>
+</section>
+
+<!-- DASHBOARD -->
+<section class="section" id="dashboard">
+ <h1>Dein <span class="gradient">Dashboard</span></h1>
+ <p class="muted">Deine persönliche Übersicht.</p>
+ <div class="stats">
+  <div class="stat"><div class="number" id="dashPoints">0</div><div class="muted">Punkte</div></div>
+  <div class="stat"><div class="number" id="dashPosts">0</div><div class="muted">Beiträge</div></div>
+  <div class="stat"><div class="number" id="dashComments">0</div><div class="muted">Kommentare</div></div>
+  <div class="stat"><div class="number" id="dashImages">0</div><div class="muted">Bilder</div></div>
+ </div>
+ <div class="card">
+  <h2>Mein Profil</h2>
+  <div class="member-left">
+   <div class="avatar" id="dashAvatar">U</div>
+   <div><strong id="dashName"></strong><div class="muted" id="dashRole"></div></div>
+  </div>
+  <p class="muted" id="dashJoined"></p>
+  <button class="btn secondary" onclick="navigateById('settings')">Profil bearbeiten</button>
+ </div>
+</section>
+
+<!-- SETTINGS -->
+<section class="section" id="settings">
+ <h1>Deine <span class="gradient">Einstellungen</span></h1>
+ <div class="card">
+  <h2>Profil bearbeiten</h2>
+  <label class="muted">Anzeigename</label>
+  <input class="input" id="editName">
+  <button class="btn" onclick="saveProfile()">Änderungen speichern</button>
+ </div>
+ <div class="card">
+  <h2>Darstellung</h2>
+  <p class="muted">Passe die Website an deine Wünsche an.</p>
+  <button class="btn secondary" onclick="toggleTheme()">◐ Dark / Light Mode wechseln</button>
+ </div>
+ <div class="card">
+  <h2>Account</h2>
+  <button class="btn danger" onclick="logout()">Abmelden</button>
+ </div>
+</section>
+
+<!-- ADMIN -->
+<section class="section" id="admin">
+ <h1>Admin <span class="gradient">Control Center</span></h1>
+ <p class="muted">Verwaltung deiner Community.</p>
+ <div class="stats">
+  <div class="stat"><div class="number" id="adminUsers">0</div><div class="muted">Benutzer</div></div>
+  <div class="stat"><div class="number" id="adminPosts">0</div><div class="muted">Beiträge</div></div>
+  <div class="stat"><div class="number" id="adminImages">0</div><div class="muted">Bilder</div></div>
+  <div class="stat"><div class="number" id="adminMessages">0</div><div class="muted">Nachrichten</div></div>
+ </div>
+ <div class="card">
+  <h2>Mitgliederverwaltung</h2>
+  <div id="adminMembers"></div>
+ </div>
+ <div class="card">
+  <h2>Beiträge verwalten</h2>
+  <div id="adminPostsList"></div>
+ </div>
+ <div class="card">
+  <h2>Chat moderieren</h2>
+  <div id="adminMessagesList"></div>
+ </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+ <div class="hero">
+  <span class="tag">ABOUT US</span>
+  <h1>We are the <span class="gradient">Future.</span></h1>
+  <p>Future Community ist ein digitaler Treffpunkt für Menschen, die Ideen austauschen, Neues entdecken und gemeinsam etwas aufbauen wollen.</p>
+ </div>
+ <div class="card">
+  <h2>Unsere Mission</h2>
+  <p class="muted">Wir wollen eine offene und freundliche Community schaffen. Jeder kann sich beteiligen, neue Kontakte knüpfen und eigene Ideen vorstellen.</p>
+ </div>
+ <div class="card">
+  <h2>Unsere Werte</h2>
+  <p class="muted">Respekt · Kreativität · Zusammenarbeit · Innovation</p>
+ </div>
+</section>
+
+<div class="footer">FUTURE COMMUNITY © 2026 · YOUR DIGITAL WORLD</div>
+</div>
+</main>
+</div>
+
+<script>
+// DATEN
+const KEY="future_community_v1";
+let db=JSON.parse(localStorage.getItem(KEY)||"null")||{
+ users:[{
+  username:"Admin",name:"Administrator",password:"FutureAdmin2026",
+  role:"admin",points:100,joined:new Date().toLocaleDateString()
+ }],
+ posts:[],messages:[],images:[],theme:"dark"
+};
+let current=null;
+let registerMode=false;
+
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(db));
+}
+function escapeHTML(s){
+ return String(s??"").replace(/[&<>"']/g,c=>({
+  "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+ }[c]));
+}
+function toast(t){
+ const el=document.createElement("div");
+ el.className="toast";el.textContent=t;document.body.appendChild(el);
+ setTimeout(()=>el.remove(),2600);
+}
+function switchAuth(){
+ registerMode=!registerMode;
+ document.getElementById("authTitle").textContent=registerMode?"Konto erstellen.":"Willkommen zurück.";
+ document.getElementById("authSubtitle").textContent=registerMode?"Werde Teil unserer Community.":"Melde dich bei deiner Community an.";
+ document.getElementById("registerFields").style.display=registerMode?"block":"none";
+ document.getElementById("switchText").textContent=registerMode?"Bereits ein Konto?":"Noch kein Konto?";
+ document.getElementById("switchLink").textContent=registerMode?"Anmelden":"Registrieren";
+}
+function authenticate(){
+ const u=document.getElementById("username").value.trim();
+ const p=document.getElementById("password").value;
+ if(!u||!p)return toast("Bitte alle Felder ausfüllen.");
+ if(registerMode){
+  const name=document.getElementById("regName").value.trim();
+  if(!name)return toast("Bitte einen Namen eingeben.");
+  if(u.toLowerCase()==="admin")return toast("Dieser Benutzername ist reserviert.");
+  if(db.users.some(x=>x.username.toLowerCase()===u.toLowerCase()))return toast("Benutzername bereits vergeben.");
+  if(p.length<6)return toast("Passwort muss mindestens 6 Zeichen haben.");
+  db.users.push({username:u,name,password:p,role:"user",points:0,joined:new Date().toLocaleDateString()});
+  save();toast("Konto erstellt! Du kannst dich jetzt anmelden.");
+  switchAuth();return;
+ }
+ const user=db.users.find(x=>x.username.toLowerCase()===u.toLowerCase()&&x.password===p);
+ if(!user)return toast("Benutzername oder Passwort falsch.");
+ current=user;startApp();
+}
+function startApp(){
+ document.getElementById("auth").style.display="none";
+ document.getElementById("app").style.display="flex";
+ document.body.classList.toggle("light",db.theme==="light");
+ refresh();
+}
+function logout(){
+ current=null;
+ document.getElementById("app").style.display="none";
+ document.getElementById("auth").style.display="flex";
+ document.getElementById("username").value="";
+ document.getElementById("password").value="";
+}
+function navigate(id,btn){
+ document.querySelectorAll(".section").forEach(x=>x.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ document.querySelectorAll(".nav button").forEach(x=>x.classList.remove("active"));
+ if(btn)btn.classList.add("active");
+ document.getElementById("sidebar").classList.remove("open");
+ refresh();
+}
+function navigateById(id){
+ const btn=[...document.querySelectorAll(".nav button")].find(x=>x.getAttribute("onclick")?.includes("'"+id+"'"));
+ navigate(id,btn);
+}
+function toggleTheme(){
+ db.theme=db.theme==="light"?"dark":"light";
+ document.body.classList.toggle("light",db.theme==="light");save();
+}
+function addPoints(n){
+ current.points+=n;save();
+}
+function refresh(){
+ if(!current)return;
+ document.getElementById("sideName").textContent=current.name;
+ document.getElementById("sideAvatar").textContent=current.name[0].toUpperCase();
+ document.getElementById("topAvatar").textContent=current.name[0].toUpperCase();
+ document.getElementById("sideRole").textContent=current.role==="admin"?"Administrator":"Mitglied";
+ document.getElementById("adminButton").style.display=current.role==="admin"?"flex":"none";
+ document.getElementById("adminLabel").style.display=current.role==="admin"?"block":"none";
+ document.getElementById("statUsers").textContent=db.users.length;
+ document.getElementById("statPosts").textContent=db.posts.length;
+ document.getElementById("statMessages").textContent=db.messages.length;
+ document.getElementById("statPoints").textContent=current.points;
+ document.getElementById("homePosts").innerHTML=postHTML(db.posts.slice().reverse().slice(0,3));
+ document.getElementById("allPosts").innerHTML=postHTML(db.posts.slice().reverse());
+ document.getElementById("homeRanking").innerHTML=rankingHTML(3);
+ document.getElementById("fullRanking").innerHTML=rankingHTML(100);
+ document.getElementById("chatBox").innerHTML=chatHTML();
+ document.getElementById("galleryGrid").innerHTML=db.images.map(i=>`<div><img src="${i.data}" alt=""><p class="muted">${escapeHTML(i.caption)} · ${escapeHTML(i.author)}</p></div>`).join("")||'<div class="empty">Noch keine Bilder vorhanden.</div>';
+ document.getElementById("dashPoints").textContent=current.points;
+ document.getElementById("dashPosts").textContent=db.posts.filter(p=>p.author===current.username).length;
+ document.getElementById("dashComments").textContent=db.posts.reduce((n,p)=>n+p.comments.filter(c=>c.author===current.username).length,0);
+ document.getElementById("dashImages").textContent=db.images.filter(i=>i.author===current.username).length;
+ document.getElementById("dashName").textContent=current.name;
+ document.getElementById("dashRole").textContent=current.role==="admin"?"Administrator":"Community Mitglied";
+ document.getElementById("dashAvatar").textContent=current.name[0].toUpperCase();
+ document.getElementById("dashJoined").textContent="Mitglied seit: "+current.joined;
+ document.getElementById("editName").value=current.name;
+ if(current.role==="admin")renderAdmin();
+}
+function postHTML(posts){
+ if(!posts.length)return '<div class="empty">Noch keine Beiträge. Sei der Erste!</div>';
+ return posts.map(p=>`
+ <div class="post">
+  <div class="post-user"><div class="avatar">${escapeHTML(p.author[0].toUpperCase())}</div>
+  <div><strong>${escapeHTML(p.name)}</strong><div class="muted">${escapeHTML(p.date)}</div></div></div>
+  <h3>${escapeHTML(p.title)}</h3><p>${escapeHTML(p.text)}</p>
+  <div class="post-actions">
+   <button class="btn secondary small" onclick="likePost(${p.id})">♡ ${p.likes}</button>
+   <span class="muted">${p.comments.length} Kommentare</span>
+  </div>
+  <div style="margin-top:12px">
+   ${p.comments.map(c=>`<p><strong>${escapeHTML(c.name)}:</strong> ${escapeHTML(c.text)}</p>`).join("")}
+   <div style="display:flex;gap:7px">
+    <input class="input" id="comment${p.id}" placeholder="Kommentieren..." style="margin:5px 0">
+    <button class="btn small" onclick="commentPost(${p.id})">+</button>
+   </div>
+  </div>
+ </div>`).join("");
+}
+function createPost(){
+ const title=document.getElementById("postTitle").value.trim();
+ const txt=document.getElementById("postText").value.trim();
+ if(!title||!txt)return toast("Bitte Titel und Text eingeben.");
+ db.posts.push({id:Date.now(),title,text:txt,author:current.username,name:current.name,date:new Date().toLocaleString(),likes:0,liked:[],comments:[]});
+ addPoints(10);save();refresh();
+ document.getElementById("postTitle").value="";
+ document.getElementById("postText").value="";
+ toast("Beitrag veröffentlicht! +10 Punkte");
+}
+function likePost(id){
+ const p=db.posts.find(x=>x.id===id);
+ if(p.liked.includes(current.username)){p.liked=p.liked.filter(x=>x!==current.username);p.likes--;}
+ else{p.liked.push(current.username);p.likes++;}
+ save();refresh();
+}
+function commentPost(id){
+ const input=document.getElementById("comment"+id);
+ const txt=input.value.trim();if(!txt)return;
+ db.posts.find(x=>x.id===id).comments.push({author:current.username,name:current.name,text:txt});
+ addPoints(2);save();refresh();toast("+2 Punkte");
+}
+function sendMessage(){
+ const input=document.getElementById("chatInput");
+ const txt=input.value.trim();if(!txt)return;
+ db.messages.push({author:current.username,name:current.name,text:txt,date:new Date().toLocaleTimeString()});
+ save();refresh();input.value="";
+}
+function chatHTML(){
+ return db.messages.map(m=>`<div class="message"><strong>${escapeHTML(m.name)}</strong> <span class="muted">${escapeHTML(m.date)}</span><p>${escapeHTML(m.text)}</p></div>`).join("")||'<div class="empty">Noch keine Nachrichten.</div>';
+}
+function rankingHTML(limit){
+ return db.users.slice().sort((a,b)=>b.points-a.points).slice(0,limit).map((u,i)=>`
+ <div class="member"><div class="member-left"><div class="rank">${i+1}</div><div class="avatar">${escapeHTML(u.name[0].toUpperCase())}</div><div><strong>${escapeHTML(u.name)}</strong><div class="muted">${u.role==="admin"?"Administrator":"Mitglied"}</div></div></div><strong>${u.points} XP</strong></div>`).join("");
+}
+function uploadImage(){
+ const file=document.getElementById("imageUpload").files[0];
+ if(!file)return toast("Bitte ein Bild auswählen.");
+ if(!file.type.startsWith("image/"))return toast("Ungültige Datei.");
+ if(file.size>1500000)return toast("Bild zu groß. Maximal 1,5 MB.");
+ const reader=new FileReader();
+ reader.onload=()=>{
+  db.images.push({data:reader.result,caption:document.getElementById("imageCaption").value,author:current.username});
+  save();refresh();toast("Bild hochgeladen!");
+ };
+ reader.readAsDataURL(file);
+}
+function saveProfile(){
+ const n=document.getElementById("editName").value.trim();
+ if(!n)return toast("Name darf nicht leer sein.");
+ current.name=n;save();refresh();toast("Profil aktualisiert.");
+}
+function renderAdmin(){
+ document.getElementById("adminUsers").textContent=db.users.length;
+ document.getElementById("adminPosts").textContent=db.posts.length;
+ document.getElementById("adminImages").textContent=db.images.length;
+ document.getElementById("adminMessages").textContent=db.messages.length;
+ document.getElementById("adminMembers").innerHTML=db.users.map(u=>`
+ <div class="member"><div><strong>${escapeHTML(u.name)}</strong><div class="muted">${escapeHTML(u.username)} · ${u.role}</div></div>
+ <div style="display:flex;gap:6px;align-items:center">
+ <button class="btn secondary small" onclick="changeRole('${escapeHTML(u.username)}')">Rolle</button>
+ ${u.username!=="Admin"&&u.username!==current.username?`<button class="btn danger small" onclick="deleteUser('${escapeHTML(u.username)}')">×</button>`:""}
+ </div></div>`).join("");
+ document.getElementById("adminPostsList").innerHTML=db.posts.map(p=>`<div class="member"><span>${escapeHTML(p.title)} – ${escapeHTML(p.name)}</span><button class="btn danger small" onclick="deletePost(${p.id})">Löschen</button></div>`).join("")||'<p class="muted">Keine Beiträge.</p>';
+ document.getElementById("adminMessagesList").innerHTML=db.messages.slice().reverse().map((m,i)=>`<div class="member"><span>${escapeHTML(m.name)}: ${escapeHTML(m.text)}</span><button class="btn danger small" onclick="deleteMessage(${db.messages.length-1-i})">×</button></div>`).join("")||'<p class="muted">Keine Nachrichten.</p>';
+}
+function changeRole(u){
+ const user=db.users.find(x=>x.username===u);
+ if(!user||user.username==="Admin")return;
+ user.role=user.role==="admin"?"user":"admin";
+ save();refresh();toast("Rolle geändert.");
+}
+function deleteUser(u){
+ if(!confirm("Mitglied wirklich löschen?"))return;
+ db.users=db.users.filter(x=>x.username!==u);
+ save();refresh();toast("Mitglied gelöscht.");
+}
+function deletePost(id){
+ db.posts=db.posts.filter(x=>x.id!==id);save();refresh();toast("Beitrag gelöscht.");
+}
+function deleteMessage(i){
+ db.messages.splice(i,1);save();refresh();
+}
+function searchContent(q){
+ q=q.toLowerCase();
+ if(!q)return;
+ const result=db.posts.filter(p=>(p.title+" "+p.text+" "+p.name).toLowerCase().includes(q));
+ navigateById("news");
+ document.getElementById("allPosts").innerHTML=postHTML(result);
+}
+document.getElementById("chatInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter")sendMessage();
+});
+save();
+</script>
+</body>
+</html>
