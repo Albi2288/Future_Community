@@ -4,6 +4,11 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Future Community</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+if (!window.supabase) {
+  document.write('<script src="https://unpkg.com/@supabase/supabase-js@2"><\/script>');
+}
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800&family=Inter:wght@400;500;600;700;800&display=swap');
 :root{--bg:#090b18;--panel:#12172a;--panel2:#1a2038;--text:#f5f6ff;--muted:#929bb7;--border:#29304b;--cyan:#00d9ff;--purple:#8b5cf6;--pink:#ff42bd;--green:#42e6a4}
