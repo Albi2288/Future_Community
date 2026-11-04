@@ -38,7 +38,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}.app{display:flex;min-h
 <label class="muted">Passwort</label><input class="input" id="loginPass" type="password" placeholder="Passwort">
 <button class="btn" style="width:100%" onclick="authAction()" id="authAction">Anmelden</button>
 <p class="muted" style="text-align:center;margin-top:18px"><span id="switchLabel">Noch kein Konto?</span> <a href="#" id="switch" style="color:var(--cyan)" onclick="event.preventDefault();window.registerMode=!window.registerMode;document.getElementById('regFields').classList.toggle('hidden',!window.registerMode);document.getElementById('authTitle').textContent=window.registerMode?'Konto erstellen.':'Willkommen zurÃ¼ck.';document.getElementById('authAction').textContent=window.registerMode?'Registrieren':'Anmelden';document.getElementById('switchLabel').textContent=window.registerMode?'Bereits ein Konto?':'Noch kein Konto?';this.textContent=window.registerMode?'Anmelden':'Registrieren';return false;">Registrieren</a></p>
-<p class="muted" style="font-size:10px">Anmeldung Ã¼ber Supabase. Weitere Community-Funktionen werden schrittweise verbunden.</p>
+<p class="muted" style="font-size:10px">Anmeldung über Supabase. Weitere Community-Funktionen werden schrittweise verbunden.</p>
 </div></div>
 <div class="app hidden" id="app">
 <aside class="sidebar" id="sidebar">
