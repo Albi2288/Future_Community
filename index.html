@@ -73,7 +73,20 @@ button,input,textarea{font:inherit}button{cursor:pointer}.app{display:flex;min-h
 <script>
 const SUPABASE_URL = 'https://dhwnrzmsgidmlvdbfexe.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_L_XfsbbLbkOgpHdNrAqNTg_LhVGJ9FX';
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let supabase = null;
+
+try {
+  if (!window.supabase || !window.supabase.createClient) {
+    throw new Error('Supabase konnte nicht geladen werden.');
+  }
+
+  supabase = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+} catch (error) {
+  console.error('Supabase-Fehler:', error);
+}
 
 // Lokaler Zwischenspeicher nur für die noch nicht migrierten Community-Funktionen.
 // Anmeldung und Benutzeridentität laufen ab jetzt über Supabase Auth.
