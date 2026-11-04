@@ -32,43 +32,43 @@ button,input,textarea{font:inherit}button{cursor:pointer}.app{display:flex;min-h
 <body>
 <div class="auth" id="auth"><div class="authbox">
 <div class="logo">FUTURE<span> COMMUNITY</span><small>YOUR DIGITAL WORLD</small></div>
-<h1 id="authTitle">Willkommen zurück.</h1><p class="muted" id="authHint">Melde dich an oder erstelle ein Konto.</p>
+<h1 id="authTitle">Willkommen zurÃ¼ck.</h1><p class="muted" id="authHint">Melde dich an oder erstelle ein Konto.</p>
 <div id="regFields" class="hidden"><label class="muted">Anzeigename</label><input class="input" id="regName" placeholder="Dein Name"></div>
 <label class="muted">Benutzername</label><input class="input" id="loginName" placeholder="Benutzername">
 <label class="muted">Passwort</label><input class="input" id="loginPass" type="password" placeholder="Passwort">
 <button class="btn" style="width:100%" onclick="authAction()" id="authAction">Anmelden</button>
-<p class="muted" style="text-align:center;margin-top:18px"><span id="switchLabel">Noch kein Konto?</span> <a href="#" id="switch" style="color:var(--cyan)">Registrieren</a></p>
-<p class="muted" style="font-size:10px">Anmeldung über Supabase. Weitere Community-Funktionen werden schrittweise verbunden.</p>
+<p class="muted" style="text-align:center;margin-top:18px"><span id="switchLabel">Noch kein Konto?</span> <a href="#" id="switch" style="color:var(--cyan)" onclick="event.preventDefault();window.registerMode=!window.registerMode;document.getElementById('regFields').classList.toggle('hidden',!window.registerMode);document.getElementById('authTitle').textContent=window.registerMode?'Konto erstellen.':'Willkommen zurÃ¼ck.';document.getElementById('authAction').textContent=window.registerMode?'Registrieren':'Anmelden';document.getElementById('switchLabel').textContent=window.registerMode?'Bereits ein Konto?':'Noch kein Konto?';this.textContent=window.registerMode?'Anmelden':'Registrieren';return false;">Registrieren</a></p>
+<p class="muted" style="font-size:10px">Anmeldung Ã¼ber Supabase. Weitere Community-Funktionen werden schrittweise verbunden.</p>
 </div></div>
 <div class="app hidden" id="app">
 <aside class="sidebar" id="sidebar">
 <div class="logo">FUTURE<span> COMMUNITY</span><small>YOUR DIGITAL WORLD</small></div>
 <nav class="nav">
 <div class="nav-title">COMMUNITY</div>
-<button class="active" data-page="home">⌂ &nbsp; Startseite</button><button data-page="news">▤ &nbsp; News & Blog</button><button data-page="gallery">▧ &nbsp; Galerie</button><button data-page="chat">◉ &nbsp; Community Chat</button><button data-page="ranking">♛ &nbsp; Rangliste</button>
-<div class="nav-title">MEIN BEREICH</div><button data-page="dashboard">▦ &nbsp; Dashboard</button><button data-page="friends">♧ &nbsp; Freunde</button><button data-page="inbox">✉ &nbsp; Private Nachrichten <span id="unreadNav"></span></button><button data-page="notifications">♢ &nbsp; Benachrichtigungen <span id="noticeNav"></span></button><button data-page="settings">⚙ &nbsp; Einstellungen</button>
-<div class="nav-title adminonly" id="adminTitle">ADMINISTRATION</div><button class="adminonly" data-page="admin" id="adminNav">♜ &nbsp; Admin Control Center</button>
-<div class="nav-title">INFORMATION</div><button data-page="about">ⓘ &nbsp; Über uns</button>
+<button class="active" data-page="home">â &nbsp; Startseite</button><button data-page="news">â¤ &nbsp; News & Blog</button><button data-page="gallery">â§ &nbsp; Galerie</button><button data-page="chat">â &nbsp; Community Chat</button><button data-page="ranking">â &nbsp; Rangliste</button>
+<div class="nav-title">MEIN BEREICH</div><button data-page="dashboard">â¦ &nbsp; Dashboard</button><button data-page="friends">â§ &nbsp; Freunde</button><button data-page="inbox">â &nbsp; Private Nachrichten <span id="unreadNav"></span></button><button data-page="notifications">â¢ &nbsp; Benachrichtigungen <span id="noticeNav"></span></button><button data-page="settings">â &nbsp; Einstellungen</button>
+<div class="nav-title adminonly" id="adminTitle">ADMINISTRATION</div><button class="adminonly" data-page="admin" id="adminNav">â &nbsp; Admin Control Center</button>
+<div class="nav-title">INFORMATION</div><button data-page="about">â &nbsp; Ãber uns</button>
 </nav>
 <div class="bottom"><div class="row"><img class="avatar" id="sidePic" alt=""><div><b id="sideName" style="font-size:13px"></b><div class="muted" id="sideRole"></div></div></div><button class="btn secondary small" style="width:100%;margin-top:13px" onclick="logout()">Abmelden</button></div>
 </aside>
-<main class="main"><header class="topbar"><div class="row"><button class="btn secondary mobile" onclick="sidebar.classList.toggle('open')">☰</button><input class="search" id="search" placeholder="⌕  Community durchsuchen..." oninput="searchPosts(this.value)"></div><div class="row"><button class="btn secondary small" onclick="toggleTheme()">◐</button><button class="btn secondary small" onclick="go('notifications')">♢ <span id="noticeCount">0</span></button><img class="avatar" id="topPic" alt=""></div></header>
+<main class="main"><header class="topbar"><div class="row"><button class="btn secondary mobile" onclick="sidebar.classList.toggle('open')">â°</button><input class="search" id="search" placeholder="â  Community durchsuchen..." oninput="searchPosts(this.value)"></div><div class="row"><button class="btn secondary small" onclick="toggleTheme()">â</button><button class="btn secondary small" onclick="go('notifications')">â¢ <span id="noticeCount">0</span></button><img class="avatar" id="topPic" alt=""></div></header>
 <div class="page">
-<section class="section active" id="home"><div class="hero"><span class="tag">✦ THE FUTURE STARTS HERE</span><h1>Welcome to your <span class="gradient">Future.</span></h1><p>Entdecke neue Menschen, teile deine Ideen und werde Teil einer Community, die gemeinsam die digitale Zukunft gestaltet.</p><button class="btn" onclick="go('news')">Community entdecken →</button> <button class="btn secondary" onclick="go('chat')">Zum Chat</button></div>
-<div class="stats"><div class="stat">👥<div class="num" id="sUsers">0</div><div class="muted">Mitglieder</div></div><div class="stat">▤<div class="num" id="sPosts">0</div><div class="muted">Beiträge</div></div><div class="stat">💬<div class="num" id="sMsgs">0</div><div class="muted">Nachrichten</div></div><div class="stat">⚡<div class="num" id="sPoints">0</div><div class="muted">Deine Punkte</div></div></div>
-<div class="grid"><div class="card"><div class="head"><h2>Neueste Beiträge</h2><button class="btn secondary small" onclick="go('news')">Alle anzeigen</button></div><div id="homePosts"></div></div><div><div class="card"><h2>🏆 Top Mitglieder</h2><div id="homeRank"></div></div><div class="card"><h2>✨ Community Info</h2><p class="muted">Respekt · Kreativität · Zusammenarbeit · Innovation</p></div></div></div></section>
-<section class="section" id="news"><h1>News & <span class="gradient">Beiträge</span></h1><p class="muted">Teile deine Gedanken mit der Community.</p><div class="card"><h2>Neuen Beitrag erstellen</h2><input class="input" id="postTitle" placeholder="Titel"><textarea class="input" id="postText" placeholder="Was möchtest du teilen?"></textarea><button class="btn" onclick="createPost()">Veröffentlichen +</button></div><div class="card"><div class="head"><h2>Community Feed</h2><span class="tag">COMMUNITY</span></div><div id="allPosts"></div></div></section>
-<section class="section" id="gallery"><h1>Community <span class="gradient">Galerie</span></h1><div class="card"><h2>Bild hochladen</h2><input class="input" type="file" id="imageFile" accept="image/*"><input class="input" id="imageCaption" placeholder="Bildbeschreibung"><button class="btn" onclick="uploadImage()">Bild veröffentlichen</button></div><div class="card"><div class="gallery" id="galleryGrid"></div></div></section>
-<section class="section" id="chat"><h1>Community <span class="gradient">Chat</span></h1><div class="card"><div class="head"><h2>🌐 Allgemeiner Chat</h2><span class="tag">ÖFFENTLICH</span></div><div class="chatbox" id="chatBox"></div><div class="row" style="margin-top:10px"><input class="input" id="chatInput" placeholder="Nachricht schreiben..."><button class="btn" onclick="sendPublic()">➤</button></div></div></section>
+<section class="section active" id="home"><div class="hero"><span class="tag">â¦ THE FUTURE STARTS HERE</span><h1>Welcome to your <span class="gradient">Future.</span></h1><p>Entdecke neue Menschen, teile deine Ideen und werde Teil einer Community, die gemeinsam die digitale Zukunft gestaltet.</p><button class="btn" onclick="go('news')">Community entdecken â</button> <button class="btn secondary" onclick="go('chat')">Zum Chat</button></div>
+<div class="stats"><div class="stat">ð¥<div class="num" id="sUsers">0</div><div class="muted">Mitglieder</div></div><div class="stat">â¤<div class="num" id="sPosts">0</div><div class="muted">BeitrÃ¤ge</div></div><div class="stat">ð¬<div class="num" id="sMsgs">0</div><div class="muted">Nachrichten</div></div><div class="stat">â¡<div class="num" id="sPoints">0</div><div class="muted">Deine Punkte</div></div></div>
+<div class="grid"><div class="card"><div class="head"><h2>Neueste BeitrÃ¤ge</h2><button class="btn secondary small" onclick="go('news')">Alle anzeigen</button></div><div id="homePosts"></div></div><div><div class="card"><h2>ð Top Mitglieder</h2><div id="homeRank"></div></div><div class="card"><h2>â¨ Community Info</h2><p class="muted">Respekt Â· KreativitÃ¤t Â· Zusammenarbeit Â· Innovation</p></div></div></div></section>
+<section class="section" id="news"><h1>News & <span class="gradient">BeitrÃ¤ge</span></h1><p class="muted">Teile deine Gedanken mit der Community.</p><div class="card"><h2>Neuen Beitrag erstellen</h2><input class="input" id="postTitle" placeholder="Titel"><textarea class="input" id="postText" placeholder="Was mÃ¶chtest du teilen?"></textarea><button class="btn" onclick="createPost()">VerÃ¶ffentlichen +</button></div><div class="card"><div class="head"><h2>Community Feed</h2><span class="tag">COMMUNITY</span></div><div id="allPosts"></div></div></section>
+<section class="section" id="gallery"><h1>Community <span class="gradient">Galerie</span></h1><div class="card"><h2>Bild hochladen</h2><input class="input" type="file" id="imageFile" accept="image/*"><input class="input" id="imageCaption" placeholder="Bildbeschreibung"><button class="btn" onclick="uploadImage()">Bild verÃ¶ffentlichen</button></div><div class="card"><div class="gallery" id="galleryGrid"></div></div></section>
+<section class="section" id="chat"><h1>Community <span class="gradient">Chat</span></h1><div class="card"><div class="head"><h2>ð Allgemeiner Chat</h2><span class="tag">ÃFFENTLICH</span></div><div class="chatbox" id="chatBox"></div><div class="row" style="margin-top:10px"><input class="input" id="chatInput" placeholder="Nachricht schreiben..."><button class="btn" onclick="sendPublic()">â¤</button></div></div></section>
 <section class="section" id="ranking"><h1>Community <span class="gradient">Rangliste</span></h1><div class="card" id="rankingList"></div></section>
-<section class="section" id="dashboard"><h1>Dein <span class="gradient">Dashboard</span></h1><div class="stats"><div class="stat"><div class="num" id="dPoints">0</div><div class="muted">Punkte</div></div><div class="stat"><div class="num" id="dPosts">0</div><div class="muted">Beiträge</div></div><div class="stat"><div class="num" id="dFriends">0</div><div class="muted">Freunde</div></div><div class="stat"><div class="num" id="dImages">0</div><div class="muted">Bilder</div></div></div><div class="card"><div class="row"><img class="avatar big" id="dashPic" alt=""><div><h2 id="dashName"></h2><p class="muted" id="dashRole"></p></div></div><p class="muted" id="joined"></p></div></section>
+<section class="section" id="dashboard"><h1>Dein <span class="gradient">Dashboard</span></h1><div class="stats"><div class="stat"><div class="num" id="dPoints">0</div><div class="muted">Punkte</div></div><div class="stat"><div class="num" id="dPosts">0</div><div class="muted">BeitrÃ¤ge</div></div><div class="stat"><div class="num" id="dFriends">0</div><div class="muted">Freunde</div></div><div class="stat"><div class="num" id="dImages">0</div><div class="muted">Bilder</div></div></div><div class="card"><div class="row"><img class="avatar big" id="dashPic" alt=""><div><h2 id="dashName"></h2><p class="muted" id="dashRole"></p></div></div><p class="muted" id="joined"></p></div></section>
 <section class="section" id="friends"><h1>Deine <span class="gradient">Freunde</span></h1><div class="card"><h2>Mitglieder entdecken</h2><div id="peopleList"></div></div><div class="card"><h2>Freundschaftsanfragen</h2><div id="requestsList"></div></div><div class="card"><h2>Meine Freunde</h2><div id="friendsList"></div></div></section>
-<section class="section" id="inbox"><h1>Private <span class="gradient">Nachrichten</span></h1><div class="grid"><div class="card"><h2>Unterhaltung auswählen</h2><div id="inboxPeople"></div></div><div class="card"><h2 id="dmTitle">Nachrichten</h2><div class="chatbox" id="dmBox"></div><div class="row" style="margin-top:10px"><input class="input" id="dmInput" placeholder="Private Nachricht..."><button class="btn" onclick="sendDM()">➤</button></div></div></div></section>
+<section class="section" id="inbox"><h1>Private <span class="gradient">Nachrichten</span></h1><div class="grid"><div class="card"><h2>Unterhaltung auswÃ¤hlen</h2><div id="inboxPeople"></div></div><div class="card"><h2 id="dmTitle">Nachrichten</h2><div class="chatbox" id="dmBox"></div><div class="row" style="margin-top:10px"><input class="input" id="dmInput" placeholder="Private Nachricht..."><button class="btn" onclick="sendDM()">â¤</button></div></div></div></section>
 <section class="section" id="notifications"><h1>Deine <span class="gradient">Benachrichtigungen</span></h1><div class="card"><div class="head"><h2>Aktuelles</h2><button class="btn secondary small" onclick="markRead()">Alle gelesen</button></div><div id="noticeList"></div></div></section>
-<section class="section" id="settings"><h1>Deine <span class="gradient">Einstellungen</span></h1><div class="card"><h2>Profil bearbeiten</h2><label class="muted">Anzeigename</label><input class="input" id="editName"><label class="muted">Profilbild</label><input class="input" type="file" id="avatarFile" accept="image/*"><button class="btn" onclick="saveProfile()">Änderungen speichern</button></div><div class="card"><h2>Darstellung</h2><button class="btn secondary" onclick="toggleTheme()">◐ Dark / Light Mode wechseln</button></div><div class="card"><h2>Datenschutz & Konto</h2><p class="muted">Beiträge, Kommentare und Likes werden mit Supabase synchronisiert. Weitere Bereiche werden schrittweise verbunden.</p><button class="btn danger" onclick="logout()">Abmelden</button></div></section>
-<section class="section" id="admin"><h1>Admin <span class="gradient">Control Center</span></h1><div class="stats"><div class="stat"><div class="num" id="aUsers">0</div><div class="muted">Mitglieder</div></div><div class="stat"><div class="num" id="aPosts">0</div><div class="muted">Beiträge</div></div><div class="stat"><div class="num" id="aImages">0</div><div class="muted">Bilder</div></div><div class="stat"><div class="num" id="aMsgs">0</div><div class="muted">Nachrichten</div></div></div><div class="card"><h2>Mitglieder verwalten</h2><div id="adminMembers"></div></div><div class="card"><h2>Beiträge moderieren</h2><div id="adminPosts"></div></div><div class="card"><h2>Nachrichten moderieren</h2><div id="adminDMs"></div></div><div class="card"><h2>System</h2><button class="btn danger" onclick="resetDemo()">Demo-Daten zurücksetzen</button></div></section>
-<section class="section" id="about"><div class="hero"><span class="tag">ABOUT US</span><h1>We are the <span class="gradient">Future.</span></h1><p>Ein digitaler Treffpunkt für Menschen, die Ideen austauschen, Neues entdecken und gemeinsam etwas aufbauen wollen.</p></div><div class="card"><h2>Unsere Mission</h2><p class="muted">Eine offene und freundliche Community schaffen, in der jeder eigene Ideen vorstellen und neue Kontakte knüpfen kann.</p></div></section>
-<div class="footer">FUTURE COMMUNITY © 2026 · YOUR DIGITAL WORLD</div>
+<section class="section" id="settings"><h1>Deine <span class="gradient">Einstellungen</span></h1><div class="card"><h2>Profil bearbeiten</h2><label class="muted">Anzeigename</label><input class="input" id="editName"><label class="muted">Profilbild</label><input class="input" type="file" id="avatarFile" accept="image/*"><button class="btn" onclick="saveProfile()">Ãnderungen speichern</button></div><div class="card"><h2>Darstellung</h2><button class="btn secondary" onclick="toggleTheme()">â Dark / Light Mode wechseln</button></div><div class="card"><h2>Datenschutz & Konto</h2><p class="muted">BeitrÃ¤ge, Kommentare und Likes werden mit Supabase synchronisiert. Weitere Bereiche werden schrittweise verbunden.</p><button class="btn danger" onclick="logout()">Abmelden</button></div></section>
+<section class="section" id="admin"><h1>Admin <span class="gradient">Control Center</span></h1><div class="stats"><div class="stat"><div class="num" id="aUsers">0</div><div class="muted">Mitglieder</div></div><div class="stat"><div class="num" id="aPosts">0</div><div class="muted">BeitrÃ¤ge</div></div><div class="stat"><div class="num" id="aImages">0</div><div class="muted">Bilder</div></div><div class="stat"><div class="num" id="aMsgs">0</div><div class="muted">Nachrichten</div></div></div><div class="card"><h2>Mitglieder verwalten</h2><div id="adminMembers"></div></div><div class="card"><h2>BeitrÃ¤ge moderieren</h2><div id="adminPosts"></div></div><div class="card"><h2>Nachrichten moderieren</h2><div id="adminDMs"></div></div><div class="card"><h2>System</h2><button class="btn danger" onclick="resetDemo()">Demo-Daten zurÃ¼cksetzen</button></div></section>
+<section class="section" id="about"><div class="hero"><span class="tag">ABOUT US</span><h1>We are the <span class="gradient">Future.</span></h1><p>Ein digitaler Treffpunkt fÃ¼r Menschen, die Ideen austauschen, Neues entdecken und gemeinsam etwas aufbauen wollen.</p></div><div class="card"><h2>Unsere Mission</h2><p class="muted">Eine offene und freundliche Community schaffen, in der jeder eigene Ideen vorstellen und neue Kontakte knÃ¼pfen kann.</p></div></section>
+<div class="footer">FUTURE COMMUNITY Â© 2026 Â· YOUR DIGITAL WORLD</div>
 </div></main></div>
 <script>
 const SUPABASE_URL = 'https://dhwnrzmsgidmlvdbfexe.supabase.co';
@@ -88,20 +88,21 @@ try {
   console.error('Supabase-Fehler:', error);
 }
 
-// Lokaler Zwischenspeicher nur für die noch nicht migrierten Community-Funktionen.
-// Anmeldung und Benutzeridentität laufen ab jetzt über Supabase Auth.
+// Lokaler Zwischenspeicher nur fÃ¼r die noch nicht migrierten Community-Funktionen.
+// Anmeldung und BenutzeridentitÃ¤t laufen ab jetzt Ã¼ber Supabase Auth.
 
 const DBKEY='future_community_v3';
 const seed=()=>({users:[],posts:[],messages:[],images:[],dms:[],theme:'dark'});
 let db;try{db=JSON.parse(localStorage.getItem(DBKEY))||seed()}catch{db=seed()}
-let me=null,register=false,activeDM='';
-let communityPosts=[]; // Beiträge, Kommentare und Likes kommen direkt aus Supabase
+let me=null,activeDM='';
+window.registerMode=false;
+let communityPosts=[]; // BeitrÃ¤ge, Kommentare und Likes kommen direkt aus Supabase
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-function save(){try{localStorage.setItem(DBKEY,JSON.stringify(db))}catch(e){toast('Speicher voll. Bitte Bilder verkleinern oder löschen.')}}
+function save(){try{localStorage.setItem(DBKEY,JSON.stringify(db))}catch(e){toast('Speicher voll. Bitte Bilder verkleinern oder lÃ¶schen.')}}
 function toast(s){let x=document.createElement('div');x.className='toast';x.textContent=s;document.body.append(x);setTimeout(()=>x.remove(),2500)}
 function avatar(u,cls='avatar'){return u.avatar?`<img class="${cls}" src="${u.avatar}" alt="">`:`<div class="${cls}">${esc((u.name||'?')[0].toUpperCase())}</div>`}
-$('switch').onclick=e=>{e.preventDefault();register=!register;$('regFields').classList.toggle('hidden',!register);$('authTitle').textContent=register?'Konto erstellen.':'Willkommen zurück.';$('authAction').textContent=register?'Registrieren':'Anmelden';$('switchLabel').textContent=register?'Bereits ein Konto?':'Noch kein Konto?';$('switch').textContent=register?'Anmelden':'Registrieren'};
+// Der Registrieren-Link wird direkt im HTML geschaltet, unabhÃ¤ngig von diesem Hauptskript.
 function usernameToAuthEmail(username){return username.trim().toLowerCase()+'@futurecommunity.invalid'}
 function validUsername(username){return /^[a-zA-Z0-9_.-]{3,20}$/.test(username)}
 async function loadSupabaseProfile(authUser){
@@ -112,7 +113,7 @@ async function loadSupabaseProfile(authUser){
       role:profile.is_admin?'admin':'user',points:profile.points||0,
       joined:profile.created_at?new Date(profile.created_at).toLocaleDateString('de-DE'):new Date().toLocaleDateString('de-DE'),
       avatar:profile.avatar_url||'',friends:[],requests:[],notifications:[]};
-  // Nur für die noch nicht auf Supabase umgestellten Ansichten; enthält keine Passwörter.
+  // Nur fÃ¼r die noch nicht auf Supabase umgestellten Ansichten; enthÃ¤lt keine PasswÃ¶rter.
   const localUser=db.users.find(x=>x.username===me.username);
   if(localUser) Object.assign(localUser,me); else db.users.push({...me});
   save();
@@ -122,19 +123,19 @@ async function loadSupabaseProfile(authUser){
 async function authAction(){
   const username=$('loginName').value.trim(),password=$('loginPass').value;
   if(!username||!password)return toast('Bitte Benutzername und Passwort eingeben.');
-  if(!validUsername(username))return toast('Benutzername: 3–20 Zeichen, nur Buchstaben, Zahlen, Punkt, _ und -.');
+  if(!validUsername(username))return toast('Benutzername: 3â20 Zeichen, nur Buchstaben, Zahlen, Punkt, _ und -.');
   const email=usernameToAuthEmail(username);
-  $('authAction').disabled=true;$('authAction').textContent='Bitte warten…';
+  $('authAction').disabled=true;$('authAction').textContent='Bitte wartenâ¦';
   try{
-    if(register){
+    if(window.registerMode){
       const displayName=$('regName').value.trim();
       if(!displayName)throw new Error('Bitte Anzeigenamen eingeben.');
       if(password.length<6)throw new Error('Das Passwort muss mindestens 6 Zeichen haben.');
       const {data,error}=await supabase.auth.signUp({email,password,options:{data:{username:username.toLowerCase(),display_name:displayName}}});
       if(error)throw error;
-      if(!data.session){throw new Error('Konto angelegt, aber noch keine Sitzung erhalten. Bitte prüfe in Supabase unter Authentication → Sign In / Providers, ob Confirm email deaktiviert ist.');}
+      if(!data.session){throw new Error('Konto angelegt, aber noch keine Sitzung erhalten. Bitte prÃ¼fe in Supabase unter Authentication â Sign In / Providers, ob Confirm email deaktiviert ist.');}
       await loadSupabaseProfile(data.user);
-      register=false;toast('Willkommen bei Future Community!');
+      window.registerMode=false;toast('Willkommen bei Future Community!');
     }else{
       const {data,error}=await supabase.auth.signInWithPassword({email,password});
       if(error)throw error;
@@ -146,7 +147,7 @@ async function authAction(){
     let message=error.message||'Unbekannter Fehler.';
     if(/already registered|already been registered|duplicate key/i.test(message))message='Dieser Benutzername ist bereits vergeben.';
     toast(message);
-  }finally{$('authAction').disabled=false;$('authAction').textContent=register?'Registrieren':'Anmelden';}
+  }finally{$('authAction').disabled=false;$('authAction').textContent=window.registerMode?'Registrieren':'Anmelden';}
 }
 function start(){$('auth').classList.add('hidden');$('app').classList.remove('hidden');document.body.classList.toggle('light',db.theme==='light');render()}
 async function logout(){await supabase.auth.signOut();me=null;$('app').classList.add('hidden');$('auth').classList.remove('hidden');$('loginPass').value=''}
@@ -164,14 +165,14 @@ function addPoints(n){me.points+=n;save()}
 function render(){if(!me)return;let unread=(me.notifications||[]).filter(n=>!n.read).length;$('sideName').textContent=me.name;$('sideRole').textContent=me.role==='admin'?'Administrator':'Mitglied';$('sidePic').src=me.avatar||'';$('sidePic').style.display=me.avatar?'block':'none';$('topPic').src=me.avatar||'';$('topPic').style.display=me.avatar?'block':'none';$('sidePic').alt=me.name;$('topPic').alt=me.name;$('sidePic').style.background='linear-gradient(135deg,var(--purple),var(--cyan))';$('topPic').style.background='linear-gradient(135deg,var(--purple),var(--cyan))';$('adminNav').style.display=me.role==='admin'?'block':'none';$('adminTitle').style.display=me.role==='admin'?'block':'none';$('unreadNav').textContent=unread?'('+unread+')':'';$('noticeNav').textContent=unread?'('+unread+')':'';$('noticeCount').textContent=unread;
 $('sUsers').textContent=db.users.length;$('sPosts').textContent=communityPosts.length;$('sMsgs').textContent=db.messages.length;$('sPoints').textContent=me.points;
 $('homePosts').innerHTML=postsHTML(communityPosts.slice().reverse().slice(0,3));$('allPosts').innerHTML=postsHTML(communityPosts.slice().reverse());$('homeRank').innerHTML=rankHTML(4);$('rankingList').innerHTML=rankHTML(100);
-$('chatBox').innerHTML=db.messages.map(m=>`<div class="bubble ${m.author===me.username?'mine':''}"><small>${esc(m.name)} · ${esc(m.date)}</small>${esc(m.text)}</div>`).join('')||'<div class="empty">Noch keine Nachrichten.</div>';$('chatBox').scrollTop=$('chatBox').scrollHeight;
-$('galleryGrid').innerHTML=db.images.map(i=>`<div>${`<img src="${i.data}" alt="">`}<p class="muted">${esc(i.caption)} · ${esc(i.author)}</p></div>`).join('')||'<div class="empty">Noch keine Bilder.</div>';
+$('chatBox').innerHTML=db.messages.map(m=>`<div class="bubble ${m.author===me.username?'mine':''}"><small>${esc(m.name)} Â· ${esc(m.date)}</small>${esc(m.text)}</div>`).join('')||'<div class="empty">Noch keine Nachrichten.</div>';$('chatBox').scrollTop=$('chatBox').scrollHeight;
+$('galleryGrid').innerHTML=db.images.map(i=>`<div>${`<img src="${i.data}" alt="">`}<p class="muted">${esc(i.caption)} Â· ${esc(i.author)}</p></div>`).join('')||'<div class="empty">Noch keine Bilder.</div>';
 $('dPoints').textContent=me.points;$('dPosts').textContent=communityPosts.filter(p=>p.user_id===me.id).length;$('dFriends').textContent=(me.friends||[]).length;$('dImages').textContent=db.images.filter(i=>i.author===me.username).length;$('dashPic').src=me.avatar||'';$('dashPic').style.display=me.avatar?'block':'none';$('dashPic').alt=me.name;$('dashPic').style.background='linear-gradient(135deg,var(--purple),var(--cyan))';$('dashName').textContent=me.name;$('dashRole').textContent=me.role==='admin'?'Administrator':'Community Mitglied';$('joined').textContent='Mitglied seit: '+me.joined;$('editName').value=me.name;
 renderFriends();renderInbox();renderNotices();if(me.role==='admin')renderAdmin()}
 function formatCommunityDate(value){return value?new Date(value).toLocaleString('de-DE'):' gerade eben'}
 async function loadCommunityPosts(){
   const {data:postRows,error:postError}=await supabase.from('posts').select('*').order('created_at',{ascending:false});
-  if(postError)throw new Error('Beiträge konnten nicht geladen werden: '+postError.message);
+  if(postError)throw new Error('BeitrÃ¤ge konnten nicht geladen werden: '+postError.message);
   const [{data:profiles,error:profileError},{data:comments,error:commentsError},{data:likes,error:likesError}]=await Promise.all([
     supabase.from('profiles').select('id,username,display_name,avatar_url'),
     supabase.from('comments').select('*').order('created_at',{ascending:true}),
@@ -189,13 +190,13 @@ async function loadCommunityPosts(){
   });
 }
 async function refreshMyPoints(){const {data,error}=await supabase.from('profiles').select('points').eq('id',me.id).single();if(!error&&data)me.points=data.points||0;}
-function postsHTML(arr){if(!arr.length)return '<div class="empty">Noch keine Beiträge vorhanden.</div>';return arr.map(p=>`<article class="post"><div class="row">${p.avatar?`<img class="avatar" src="${esc(p.avatar)}" alt="">`:avatar({name:p.name})}<div><b>${esc(p.name)}</b><div class="muted">${esc(p.date)}</div></div></div><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>${p.image_url?`<img src="${esc(p.image_url)}" alt="Beitragsbild" style="max-width:100%;border-radius:12px;margin:8px 0">`:''}<div class="row"><button class="btn secondary small" onclick="likePost('${p.id}')">${p.liked?'♥':'♡'} ${p.likes}</button><span class="muted">${p.comments.length} Kommentare</span></div>${p.comments.map(c=>`<p><b>${esc(c.name)}:</b> ${esc(c.text)}</p>`).join('')}<div class="row"><input class="input" id="c-${p.id}" placeholder="Kommentieren..."><button class="btn small" onclick="commentPost('${p.id}')">+</button></div></article>`).join('')}
+function postsHTML(arr){if(!arr.length)return '<div class="empty">Noch keine BeitrÃ¤ge vorhanden.</div>';return arr.map(p=>`<article class="post"><div class="row">${p.avatar?`<img class="avatar" src="${esc(p.avatar)}" alt="">`:avatar({name:p.name})}<div><b>${esc(p.name)}</b><div class="muted">${esc(p.date)}</div></div></div><h3>${esc(p.title)}</h3><p>${esc(p.text)}</p>${p.image_url?`<img src="${esc(p.image_url)}" alt="Beitragsbild" style="max-width:100%;border-radius:12px;margin:8px 0">`:''}<div class="row"><button class="btn secondary small" onclick="likePost('${p.id}')">${p.liked?'â¥':'â¡'} ${p.likes}</button><span class="muted">${p.comments.length} Kommentare</span></div>${p.comments.map(c=>`<p><b>${esc(c.name)}:</b> ${esc(c.text)}</p>`).join('')}<div class="row"><input class="input" id="c-${p.id}" placeholder="Kommentieren..."><button class="btn small" onclick="commentPost('${p.id}')">+</button></div></article>`).join('')}
 async function createPost(){
   const title=$('postTitle').value.trim(),content=$('postText').value.trim();
   if(!title||!content)return toast('Titel und Text fehlen.');
   const {error}=await supabase.from('posts').insert({user_id:me.id,title,content});
-  if(error)return toast('Beitrag konnte nicht veröffentlicht werden: '+error.message);
-  await loadCommunityPosts();await refreshMyPoints();$('postTitle').value='';$('postText').value='';render();toast('Beitrag veröffentlicht · +10 XP');
+  if(error)return toast('Beitrag konnte nicht verÃ¶ffentlicht werden: '+error.message);
+  await loadCommunityPosts();await refreshMyPoints();$('postTitle').value='';$('postText').value='';render();toast('Beitrag verÃ¶ffentlicht Â· +10 XP');
 }
 async function likePost(id){
   const existing=await supabase.from('likes').select('id').eq('post_id',id).eq('user_id',me.id).maybeSingle();
@@ -210,34 +211,34 @@ async function commentPost(id){
   const el=$('c-'+id),content=el.value.trim();if(!content)return;
   const {error}=await supabase.from('comments').insert({post_id:id,user_id:me.id,content});
   if(error)return toast('Kommentar konnte nicht gespeichert werden: '+error.message);
-  await loadCommunityPosts();await refreshMyPoints();render();toast('Kommentar veröffentlicht · +2 XP');
+  await loadCommunityPosts();await refreshMyPoints();render();toast('Kommentar verÃ¶ffentlicht Â· +2 XP');
 }
 function sendPublic(){let text=$('chatInput').value.trim();if(!text)return;db.messages.push({author:me.username,name:me.name,text,date:new Date().toLocaleTimeString()});addPoints(1);save();$('chatInput').value='';render()}
 $('chatInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendPublic()});
 function rankHTML(n){return db.users.slice().sort((a,b)=>b.points-a.points).slice(0,n).map((u,i)=>`<div class="member"><div class="row"><b style="color:var(--cyan);width:25px">${i+1}.</b>${avatar(u)}<div><b>${esc(u.name)}</b><div class="muted">${u.role==='admin'?'Administrator':'Mitglied'}</div></div></div><b>${u.points} XP</b></div>`).join('')}
-function uploadImage(){let f=$('imageFile').files[0];if(!f)return toast('Bitte Bild auswählen.');if(!f.type.startsWith('image/')||f.size>1200000)return toast('Nur Bilder bis 1,2 MB erlaubt.');let r=new FileReader();r.onload=()=>{db.images.push({data:r.result,caption:$('imageCaption').value,author:me.username});save();render();toast('Bild hochgeladen!')};r.readAsDataURL(f)}
+function uploadImage(){let f=$('imageFile').files[0];if(!f)return toast('Bitte Bild auswÃ¤hlen.');if(!f.type.startsWith('image/')||f.size>1200000)return toast('Nur Bilder bis 1,2 MB erlaubt.');let r=new FileReader();r.onload=()=>{db.images.push({data:r.result,caption:$('imageCaption').value,author:me.username});save();render();toast('Bild hochgeladen!')};r.readAsDataURL(f)}
 function saveProfile(){let n=$('editName').value.trim();if(!n)return toast('Name fehlt.');me.name=n;let f=$('avatarFile').files[0];if(!f){save();render();return toast('Profil gespeichert.')}if(f.size>700000)return toast('Profilbild maximal 700 KB.');let r=new FileReader();r.onload=()=>{me.avatar=r.result;save();render();toast('Profil aktualisiert.')};r.readAsDataURL(f)}
-function renderFriends(){let others=db.users.filter(u=>u.username!==me.username);$('peopleList').innerHTML=others.map(u=>{let sent=(u.requests||[]).includes(me.username),friend=(me.friends||[]).includes(u.username);return `<div class="member"><div class="row">${avatar(u)}<b>${esc(u.name)}</b></div>${friend?'<span class="tag">Freunde</span>':sent?'<span class="muted">Anfrage gesendet</span>':`<button class="btn small" onclick="requestFriend('${esc(u.username)}')">+ Hinzufügen</button>`}</div>`}).join('')||'<div class="empty">Noch keine weiteren Mitglieder.</div>';
+function renderFriends(){let others=db.users.filter(u=>u.username!==me.username);$('peopleList').innerHTML=others.map(u=>{let sent=(u.requests||[]).includes(me.username),friend=(me.friends||[]).includes(u.username);return `<div class="member"><div class="row">${avatar(u)}<b>${esc(u.name)}</b></div>${friend?'<span class="tag">Freunde</span>':sent?'<span class="muted">Anfrage gesendet</span>':`<button class="btn small" onclick="requestFriend('${esc(u.username)}')">+ HinzufÃ¼gen</button>`}</div>`}).join('')||'<div class="empty">Noch keine weiteren Mitglieder.</div>';
 $('requestsList').innerHTML=(me.requests||[]).map(name=>{let u=db.users.find(x=>x.username===name);return u?`<div class="member"><div class="row">${avatar(u)}<b>${esc(u.name)}</b></div><div><button class="btn small" onclick="acceptFriend('${esc(name)}')">Annehmen</button> <button class="btn danger small" onclick="rejectFriend('${esc(name)}')">Ablehnen</button></div></div>`:''}).join('')||'<div class="empty">Keine offenen Anfragen.</div>';
 $('friendsList').innerHTML=(me.friends||[]).map(name=>{let u=db.users.find(x=>x.username===name);return u?`<div class="member"><div class="row">${avatar(u)}<b>${esc(u.name)}</b></div><button class="btn secondary small" onclick="openDM('${esc(u.username)}')">Nachricht</button></div>`:''}).join('')||'<div class="empty">Du hast noch keine Freunde.</div>'}      
 function requestFriend(name){let u=db.users.find(x=>x.username===name);u.requests=u.requests||[];if(!u.requests.includes(me.username))u.requests.push(me.username);addNotice(name,me.name+' hat dir eine Freundschaftsanfrage gesendet.');save();render();toast('Anfrage gesendet.')}
 function acceptFriend(name){me.friends=me.friends||[];let u=db.users.find(x=>x.username===name);u.friends=u.friends||[];if(!me.friends.includes(name))me.friends.push(name);if(!u.friends.includes(me.username))u.friends.push(me.username);me.requests=me.requests.filter(x=>x!==name);addNotice(name,me.name+' hat deine Freundschaftsanfrage angenommen.');save();render()}
 function rejectFriend(name){me.requests=me.requests.filter(x=>x!==name);save();render()}
-function renderInbox(){let people=db.users.filter(u=>u.username!==me.username);$('inboxPeople').innerHTML=people.map(u=>`<div class="member"><b>${esc(u.name)}</b><button class="btn secondary small" onclick="openDM('${esc(u.username)}')">Öffnen</button></div>`).join('')||'<div class="empty">Noch keine anderen Mitglieder.</div>';if(activeDM)showDM()}
+function renderInbox(){let people=db.users.filter(u=>u.username!==me.username);$('inboxPeople').innerHTML=people.map(u=>`<div class="member"><b>${esc(u.name)}</b><button class="btn secondary small" onclick="openDM('${esc(u.username)}')">Ãffnen</button></div>`).join('')||'<div class="empty">Noch keine anderen Mitglieder.</div>';if(activeDM)showDM()}
 function openDM(name){activeDM=name;go('inbox');showDM()}
-function showDM(){let u=db.users.find(x=>x.username===activeDM);if(!u)return;$('dmTitle').textContent='Chat mit '+u.name;let msgs=db.dms.filter(m=>(m.from===me.username&&m.to===activeDM)||(m.from===activeDM&&m.to===me.username));$('dmBox').innerHTML=msgs.map(m=>`<div class="bubble ${m.from===me.username?'mine':''}"><small>${esc(m.from===me.username?'Du':u.name)} · ${esc(m.date)}</small>${esc(m.text)}</div>`).join('')||'<div class="empty">Schreibe die erste Nachricht.</div>';$('dmBox').scrollTop=$('dmBox').scrollHeight}
-function sendDM(){if(!activeDM)return toast('Wähle zuerst einen Chat.');let text=$('dmInput').value.trim();if(!text)return;db.dms.push({from:me.username,to:activeDM,text,date:new Date().toLocaleTimeString(),read:false});addNotice(activeDM,'Neue private Nachricht von '+me.name+'.');addPoints(1);save();$('dmInput').value='';render();showDM()}
+function showDM(){let u=db.users.find(x=>x.username===activeDM);if(!u)return;$('dmTitle').textContent='Chat mit '+u.name;let msgs=db.dms.filter(m=>(m.from===me.username&&m.to===activeDM)||(m.from===activeDM&&m.to===me.username));$('dmBox').innerHTML=msgs.map(m=>`<div class="bubble ${m.from===me.username?'mine':''}"><small>${esc(m.from===me.username?'Du':u.name)} Â· ${esc(m.date)}</small>${esc(m.text)}</div>`).join('')||'<div class="empty">Schreibe die erste Nachricht.</div>';$('dmBox').scrollTop=$('dmBox').scrollHeight}
+function sendDM(){if(!activeDM)return toast('WÃ¤hle zuerst einen Chat.');let text=$('dmInput').value.trim();if(!text)return;db.dms.push({from:me.username,to:activeDM,text,date:new Date().toLocaleTimeString(),read:false});addNotice(activeDM,'Neue private Nachricht von '+me.name+'.');addPoints(1);save();$('dmInput').value='';render();showDM()}
 function renderNotices(){$('noticeList').innerHTML=(me.notifications||[]).map(n=>`<div class="member"><div><b>${esc(n.text)}</b><div class="muted">${esc(n.date)}</div></div>${n.read?'<span class="muted">Gelesen</span>':'<span class="tag">NEU</span>'}</div>`).join('')||'<div class="empty">Keine Benachrichtigungen.</div>'}
 function markRead(){(me.notifications||[]).forEach(n=>n.read=true);save();render()}
 function renderAdmin(){$('aUsers').textContent=db.users.length;$('aPosts').textContent=communityPosts.length;$('aImages').textContent=db.images.length;$('aMsgs').textContent=db.messages.length;
-$('adminMembers').innerHTML=db.users.map(u=>`<div class="member"><div><b>${esc(u.name)}</b><div class="muted">${esc(u.username)} · ${u.role}</div></div><div><button class="btn secondary small" onclick="roleChange('${esc(u.username)}')">Rolle ändern</button> ${u.username!=='Admin'&&u.username!==me.username?`<button class="btn danger small" onclick="removeUser('${esc(u.username)}')">Löschen</button>`:''}</div></div>`).join('');
-$('adminPosts').innerHTML=communityPosts.map(p=>`<div class="member"><span>${esc(p.title)} · ${esc(p.name)}</span><button class="btn danger small" onclick="removePost('${p.id}')">Löschen</button></div>`).join('')||'<p class="muted">Keine Beiträge.</p>';
-$('adminDMs').innerHTML=db.messages.map((m,i)=>`<div class="member"><span>${esc(m.name)}: ${esc(m.text)}</span><button class="btn danger small" onclick="removeMessage(${i})">Löschen</button></div>`).join('')||'<p class="muted">Keine Chatnachrichten.</p>'}
+$('adminMembers').innerHTML=db.users.map(u=>`<div class="member"><div><b>${esc(u.name)}</b><div class="muted">${esc(u.username)} Â· ${u.role}</div></div><div><button class="btn secondary small" onclick="roleChange('${esc(u.username)}')">Rolle Ã¤ndern</button> ${u.username!=='Admin'&&u.username!==me.username?`<button class="btn danger small" onclick="removeUser('${esc(u.username)}')">LÃ¶schen</button>`:''}</div></div>`).join('');
+$('adminPosts').innerHTML=communityPosts.map(p=>`<div class="member"><span>${esc(p.title)} Â· ${esc(p.name)}</span><button class="btn danger small" onclick="removePost('${p.id}')">LÃ¶schen</button></div>`).join('')||'<p class="muted">Keine BeitrÃ¤ge.</p>';
+$('adminDMs').innerHTML=db.messages.map((m,i)=>`<div class="member"><span>${esc(m.name)}: ${esc(m.text)}</span><button class="btn danger small" onclick="removeMessage(${i})">LÃ¶schen</button></div>`).join('')||'<p class="muted">Keine Chatnachrichten.</p>'}
 function roleChange(name){let u=db.users.find(x=>x.username===name);if(!u||name==='Admin')return;u.role=u.role==='admin'?'user':'admin';save();render();toast('Rolle aktualisiert.')}
 function removeUser(name){if(!confirm('Mitglied wirklich entfernen?'))return;db.users=db.users.filter(u=>u.username!==name);db.users.forEach(u=>{u.friends=(u.friends||[]).filter(x=>x!==name);u.requests=(u.requests||[]).filter(x=>x!==name)});db.dms=db.dms.filter(m=>m.from!==name&&m.to!==name);save();render()}
-async function removePost(id){if(me.role!=='admin')return toast('Keine Berechtigung.');if(!confirm('Beitrag wirklich löschen?'))return;const {error}=await supabase.from('posts').delete().eq('id',id);if(error)return toast('Beitrag konnte nicht gelöscht werden: '+error.message);await loadCommunityPosts();render();}
+async function removePost(id){if(me.role!=='admin')return toast('Keine Berechtigung.');if(!confirm('Beitrag wirklich lÃ¶schen?'))return;const {error}=await supabase.from('posts').delete().eq('id',id);if(error)return toast('Beitrag konnte nicht gelÃ¶scht werden: '+error.message);await loadCommunityPosts();render();}
 function removeMessage(i){db.messages.splice(i,1);save();render()}
-function resetDemo(){if(!confirm('Alle lokalen Demo-Daten wirklich löschen?'))return;db=seed();save();logout();toast('Demo zurückgesetzt.')}
+function resetDemo(){if(!confirm('Alle lokalen Demo-Daten wirklich lÃ¶schen?'))return;db=seed();save();logout();toast('Demo zurÃ¼ckgesetzt.')}
 function searchPosts(q){if(!q){$('allPosts').innerHTML=postsHTML(communityPosts.slice().reverse());return}go('news');let found=communityPosts.filter(p=>(p.title+' '+p.text+' '+p.name).toLowerCase().includes(q.toLowerCase()));$('allPosts').innerHTML=postsHTML(found)}
 $('dmInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendDM()});
 save();
