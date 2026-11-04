@@ -527,11 +527,23 @@ function renderAdmin(){
   $('adminPosts').innerHTML=communityPosts.map(p=>`<div class="member"><span>${esc(p.title)} · ${esc(p.name)}</span><button class="btn danger small" onclick="removePost('${p.id}')">Löschen</button></div>`).join('')||'<p class="muted">Keine Beiträge.</p>';
   $('adminDMs').innerHTML=chatMessages.slice().reverse().slice(0,50).map(m=>`<div class="member"><span>${esc(personName(m.user_id))}: ${esc(m.content)}</span><button class="btn danger small" onclick="removeMessage('${m.id}')">Löschen</button></div>`).join('')||'<p class="muted">Keine Chatnachrichten.</p>';
 }
-async function roleChange(id){
-  const u=profileById[id];if(!u||id===me.id)return;
-  const {data,error}=await sb.from('profiles').update({is_admin:u.role!=='admin'}).eq('id',id).select();
-  if(error||!data||!data.length)return toast('Rolle konnte nicht geändert werden: '+(error?error.message:'keine Berechtigung'));
-  await loadProfiles().catch(()=>{});render();toast('Rolle aktualisiert.');
+
+async function roleChange(id) {
+  const u = profileById[id];
+  if (!u || id === me.id) return;
+
+  const { error } = await sb.rpc('admin_set_role', {
+    target_user_id: id,
+    make_admin: u.role !== 'admin'
+  });
+
+  if (error) {
+    return toast('Rolle konnte nicht geändert werden: ' + error.message);
+  }
+
+  await loadProfiles();
+  render();
+  toast('Rolle erfolgreich geändert.');
 }
 async function removeMessage(id){
   const {error}=await sb.from('chat_messages').delete().eq('id',id);
